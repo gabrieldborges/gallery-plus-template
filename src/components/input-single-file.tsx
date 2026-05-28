@@ -42,35 +42,53 @@ interface InputSingleFileProps
     Omit<React.ComponentProps<"input">, "size"> {
     error?: React.ReactNode,
     form: any,
+    maxFileSizeInMB: number,
+    allowedExtensions: string[],
 
 }
 
-export default function InputSingleFile({ size, error, form, ...props }: InputSingleFileProps) {
+export default function InputSingleFile({ size, error, form, maxFileSizeInMB, allowedExtensions, ...props }: InputSingleFileProps) {
     const formValues = useWatch({ control: form.control });
     const name = props.name || "";
-        
+
     const formFile: File = React.useMemo(
         () => formValues[name]?.[0], [formValues, name]
     );
-        
+
+    const { fileExtension, fileSize } = React.useMemo(
+        () => ({
+            fileExtension: formFile?.name?.split(".").pop()?.toLocaleLowerCase() || "",
+            fileSize: formFile?.size || 0
+        }), [formFile]
+    )
+
+    const acceptAttr = allowedExtensions.map(ext => `.${ext}`).join(",");
 
     React.useEffect(() => {
-        // console.log(formValues)
-
-        // console.log("formFile--------->")
-        // console.log(formFile)
-
-
-
-
+        console.log(`${((fileSize / 1024) / 1024).toFixed(2)}MB ${fileExtension}`)
+        console.log(isExtensionValid())
     }, [formFile])
 
+    console.log(acceptAttr)
+
+
+
+    function isExtensionValid() {
+        return allowedExtensions.includes(fileExtension)
+    }
+
+    function isSizeValid() {
+        return fileSize <= maxFileSizeInMB * 1024 * 1024
+    }
+    function isFileValid() {
+        return isExtensionValid() && isSizeValid()
+    }
 
 
     return (
         <div>
             {
-                !formFile ? (
+                !formFile || !isFileValid() ? (
 
                     <>
 
@@ -78,6 +96,7 @@ export default function InputSingleFile({ size, error, form, ...props }: InputSi
                             <input
                                 type="file"
                                 className="absolute top-0 right-0 w-full h-full opacity-0 cursor-pointer"
+                                accept={acceptAttr}
                                 {...props}
                             />
                             <div className={inputSingleFileVariants({ size })}>
@@ -96,6 +115,16 @@ export default function InputSingleFile({ size, error, form, ...props }: InputSi
                         {error && (
                             <Text variant="label-small" className="text-accent-red">
                                 Erro no campo
+                            </Text>
+                        )}
+                        {formFile && !isSizeValid() && (
+                            <Text variant="label-small" className="text-accent-red">
+                                Tamanho de arquivo inválido. O máximo permitido é 50MB,
+                            </Text>
+                        )}
+                        {formFile && !isExtensionValid() && (
+                            <Text variant="label-small" className="text-accent-red">
+                                Tipo de arquivo inválido. Você pode selecionar arquivos em PNG, JPG, JPEG ou WEBP.
                             </Text>
                         )}
 
