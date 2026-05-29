@@ -44,12 +44,19 @@ interface InputSingleFileProps
     form: any,
     maxFileSizeInMB: number,
     allowedExtensions: string[],
+    replaceBy: React.ReactNode
 
 }
 
-export default function InputSingleFile({ size, error, form, maxFileSizeInMB, allowedExtensions, ...props }: InputSingleFileProps) {
+export default function InputSingleFile({ replaceBy, size, error, form, maxFileSizeInMB, allowedExtensions, ...props }: InputSingleFileProps) {
     const formValues = useWatch({ control: form.control });
     const name = props.name || "";
+
+    const file = form.watch("file")
+	React.useEffect(()=>{
+
+		console.log(`file is ${file}`)
+	}, [form])
 
     const formFile: File = React.useMemo(
         () => formValues[name]?.[0], [formValues, name]
@@ -132,6 +139,7 @@ export default function InputSingleFile({ size, error, form, maxFileSizeInMB, al
                 ) :
 
                     <>
+                        {replaceBy}
                         <div className="flex gap-3 items-center border border-solid border-border-primary mt-5 p-3 rounded">
                             <Icon svg={FileImageIcon} className="fill-white w-6 h-6" />
                             <div className="flex flex-col">

@@ -10,9 +10,19 @@ import InputText from "./components/input-text";
 import searchIcon from "./assets/icons/search.svg?react"
 import InputSingleFile from "./components/input-single-file";
 import { useForm } from "react-hook-form";
+import ImageFilePreview from "./components/image-file-preview";
+import { Dialog, DialogTrigger, DialogClose } from "../src/components/ui-components/dialog";
+import DialogContent from "../src/components/ui-components/dialog";
+import { DialogHeader, DialogBody, DialogFooter } from "../src/components/ui-components/dialog";
+
 
 export default function App() {
 	const form = useForm();
+	const file = form.watch("file")
+	const fileSrc = file?.[0] ? URL.createObjectURL(file[0]) : undefined
+
+
+
 	return (
 		<div className="grid gap-7 p-6">
 			<div className="flex gap-3">
@@ -47,7 +57,7 @@ export default function App() {
 				<Alert>
 					Tamanho máximo: 50MB
 					<br />
-					Você pode selecionar arquivos em PNG, JPG, JPEG ou WEBP
+					Você pode selecionar arquivos em PNG, JPG, JPEG, WEBP ou SVG
 				</Alert>
 			</div>
 
@@ -58,12 +68,37 @@ export default function App() {
 			<InputCheckbox size="md"></InputCheckbox>
 			<InputCheckbox size="sm"></InputCheckbox>
 			<hr />
-			<InputSingleFile
-				form={form}
-				{...form.register("file")}
-				allowedExtensions={["png", "jpeg", "jpg", "webp"]}
-				maxFileSizeInMB={50}
-			></InputSingleFile>
+
+
+			<Dialog>
+				<DialogTrigger asChild>
+					<Button>Abrir Modal</Button>
+				</DialogTrigger>
+				<DialogContent>
+					<DialogHeader>Teste</DialogHeader>
+					<DialogBody>
+						<Alert>
+							Tamanho máximo: 50MB
+							<br />
+							Você pode selecionar arquivos em PNG, JPG, JPEG, WEBP ou SVG
+						</Alert>
+						<InputSingleFile
+							form={form}
+							allowedExtensions={["png", "jpeg", "jpg", "webp", " svg"]}
+							maxFileSizeInMB={50}
+							replaceBy={<ImageFilePreview src={fileSrc} />}
+							{...form.register("file")}
+						></InputSingleFile>
+					</DialogBody>
+					<DialogFooter>
+						<DialogClose asChild>
+							<Button variant="secondary">Cancelar</Button>
+						</DialogClose>
+						<Button variant="primary">Enviar</Button>
+
+					</DialogFooter>
+				</DialogContent>
+			</Dialog>
 
 		</div>
 	);
