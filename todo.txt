@@ -1,0 +1,1 @@
+roteamento com const {id} = useParams()
