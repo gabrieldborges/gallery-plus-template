@@ -4,7 +4,7 @@ import Icon from "./icon";
 
 export const inputCheckboxWrapperVariants = tv({
   base: `
-    inline-flex items-center justify-center relative group border border-solid w-fit
+    inline-flex items-center justify-center relative group  w-fit
   `,
   variants: {
     disabled: {
@@ -21,14 +21,14 @@ export const inputCheckboxVariants = tv({
   variants: {
     variant: {
       default: `
-        border-2 border-solid
+        border-1 border-solid
       border-border-primary hover:border-border-active
        checked:border-accent-brand checked:bg-accent-brand
        group-hover:checked:border-accent-brand-light group-hover:checked:bg-accent-brand-light
       `,
     },
     size: {
-      sm: "w-3 h-3 rounded-sm",
+      sm: "w-3 h-3 rounded-xs",
       md: "w-5 h-5 rounded-sm",
     },
   },
@@ -47,7 +47,7 @@ export const inputCheckboxIconVariants = tv({
   `,
   variants: {
     size: {
-      sm: "w-3 h-3 left-px",
+      sm: "w-3 h-3 left-2px",
       md: "w-4 h-4 left-0.5",
     },
   },
@@ -57,7 +57,8 @@ export const inputCheckboxIconVariants = tv({
 });
 
 interface InputCheckboxProps
-  extends VariantProps<typeof inputCheckboxVariants>,
+  extends
+    VariantProps<typeof inputCheckboxVariants>,
     Omit<React.ComponentProps<"input">, "size"> {}
 
 export default function InputCheckbox({

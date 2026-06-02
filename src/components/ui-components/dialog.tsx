@@ -34,12 +34,19 @@ export function DialogOverlay({
   );
 }
 
+interface DialogContentProps extends React.ComponentProps<
+  typeof DialogPrimitive.Content
+> {
+  size?: "lg" | "md" ;
+}
+
 export default function DialogContent({
+  size = "lg",
   ref,
   className,
-  children,
+  children, 
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Content>) {
+}: DialogContentProps) {
   return (
     <DialogPrimitive.Portal>
       <DialogOverlay />
@@ -61,7 +68,7 @@ export default function DialogContent({
         )}
         {...props}
       >
-        <Card size="lg" variant="primary">
+        <Card size={size} variant="primary">
           {children}
         </Card>
       </DialogPrimitive.Content>
@@ -110,13 +117,14 @@ export function DialogBody({
   );
 }
 export function DialogFooter({
+    className,
   children,
   ...props
 }: React.ComponentProps<"div">) {
   return (
     <div {...props}>
-      <Divider className="mt-5 mb-1.5" />
-      <footer className="flex items-center justify-end gap-3">
+      <Divider className="mt-5 mb-2.5" />
+      <footer className={cn("flex items-center justify-end gap-3",className)}>
         {children}
       </footer>
     </div>
