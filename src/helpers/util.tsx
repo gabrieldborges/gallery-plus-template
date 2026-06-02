@@ -33,8 +33,8 @@ export const photoMock: Photo = {
       title: "Album 2",
     },
     {
-      id: "6544321",
-      title: "Album 2",
+      id: "129746",
+      title: "Album 3",
     },
   ],
 };
@@ -49,8 +49,24 @@ export const albumsListMock: Album[] = [
     title: "Album 2",
   },
   {
-    id: "6544321",
-    title: "Album 2",
+    id: "129746",
+    title: "Album 3",
+  },
+  {
+    id: "1347hhadsf",
+    title: "Album 4",
+  },
+  {
+    id: "asdfjniq4q98w",
+    title: "Album 5",
+  },
+  {
+    id: "asdfafd",
+    title: "Album 6",
+  },
+  {
+    id: "onunasdf38",
+    title: "Album 7",
   },
 ];
 

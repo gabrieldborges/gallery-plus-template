@@ -1,11 +1,12 @@
 import Text from "../components/text";
 import { useParams } from "react-router";
-import { photoMock } from "../helpers/util";
+import { photoMock, albumsListMock } from "../helpers/util";
 import Container from "../components/container";
 import Button from "../components/button";
 import Skeleton from "../components/skeleton";
 import PhotosNavigator from "../context/photos/components/photos-navigator";
 import ImageFilePreview from "../components/image-file-preview";
+import AlbumsListSelectable from "../context/albums/components/albums-list-selectable";
 
 export default function PagePhotoDetails() {
   const { id } = useParams();
@@ -24,7 +25,7 @@ export default function PagePhotoDetails() {
           <PhotosNavigator />
         </header>
 
-        <div className="grid grid-cols-[21rem_1fr]">
+        <div className="grid grid-cols-[21rem_1fr] gap-[5.75rem]">
           <div className="space-y-3 my-5">
             {!isLoadingPhoto ? (
               <ImageFilePreview
@@ -41,7 +42,16 @@ export default function PagePhotoDetails() {
               <Skeleton className="w-20 h-10" />
             )}
           </div>
-          <div className=""> </div>
+          <div className="py-3">
+            <Text as={"h3"} variant="heading-medium">
+              Albuns
+            </Text>
+            <AlbumsListSelectable
+              albums={albumsListMock}
+              loading={isLoadingPhoto}
+              photo={photoMock}
+            />
+          </div>
         </div>
       </Container>
     </>

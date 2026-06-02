@@ -1,4 +1,4 @@
-import * as DialogPrimitive from "@radix-ui/react-dialog"
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 import cn from "classnames";
 import Card from "../card";
 import Text from "../text";
@@ -6,18 +6,18 @@ import ButtonIcon from "../button-icon";
 import XIcon from "../../assets/icons/x.svg?react";
 import Divider from "../divider";
 
-
-
 export const Dialog = DialogPrimitive.Root;
 export const DialogTrigger = DialogPrimitive.Trigger;
 export const DialogClose = DialogPrimitive.Close;
 
-export function DialogOverlay({ className, ...props }:
-    React.ComponentProps<typeof DialogPrimitive.Overlay>) {
-
-    return (
-        <DialogPrimitive.Overlay
-            className={cn(`
+export function DialogOverlay({
+  className,
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Overlay>) {
+  return (
+    <DialogPrimitive.Overlay
+      className={cn(
+        `
                 fixed inset-0 z-50 bg-background-secondary/60
                 backdrop-blur-sm
                 data-[state=open]:animate-in
@@ -26,23 +26,27 @@ export function DialogOverlay({ className, ...props }:
                 data-[state=closed]:fade-out-0
      
 
-                `, className)}
-            {...props}
-        />
-    )
+                `,
+        className,
+      )}
+      {...props}
+    />
+  );
 }
 
-
-
-export default function DialogContent({ ref, className, children, ...props }: React.ComponentProps<typeof DialogPrimitive.Content>) {
-
-    return (
-        <DialogPrimitive.Portal>
-            <DialogOverlay />
-            <DialogPrimitive.Content
-                ref={ref}
-                className={cn(
-                    `
+export default function DialogContent({
+  ref,
+  className,
+  children,
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Content>) {
+  return (
+    <DialogPrimitive.Portal>
+      <DialogOverlay />
+      <DialogPrimitive.Content
+        ref={ref}
+        className={cn(
+          `
                     fixed left-[50%] top-[50%] w-full max-w-[32rem] 
                     z-70 translate-x-[-50%] translate-y-[-50%]
                     data-[state=open]:animate-in
@@ -53,67 +57,68 @@ export default function DialogContent({ ref, className, children, ...props }: Re
                     data-[state=closed]:slide-out-to-bottom-[48%]
                     
                     `,
-                    className
-                )}
-                {...props}
-            >
-
-                <Card size="lg" variant="primary">
-                    {children}
-                </Card>
-            </DialogPrimitive.Content>
-        </DialogPrimitive.Portal>
-    )
-
+          className,
+        )}
+        {...props}
+      >
+        <Card size="lg" variant="primary">
+          {children}
+        </Card>
+      </DialogPrimitive.Content>
+    </DialogPrimitive.Portal>
+  );
 }
 
 export function DialogHeader({
-    children,
-    className,
-    ...props
+  children,
+  className,
+  ...props
 }: React.ComponentProps<"div">) {
-    return (
-        <>
-            <header
-                className={cn(
-                    `
+  return (
+    <>
+      <header
+        className={cn(
+          `
           flex items-center justify-between
         `,
-                    className
-                )}
-                {...props}
-            >
-                <DialogPrimitive.Title>
-                    <Text variant="heading-medium" className="flex-1">
-                        {children}
-                    </Text>
-                </DialogPrimitive.Title>
-                <DialogClose asChild>
-                    <ButtonIcon icon={XIcon} variant="ghost" />
-                </DialogClose>
-            </header>
-            <Divider className="mt-1.5 mb-5" />
-        </>
-    );
+          className,
+        )}
+        {...props}
+      >
+        <DialogPrimitive.Title>
+          <Text variant="heading-medium" className="flex-1">
+            {children}
+          </Text>
+        </DialogPrimitive.Title>
+        <DialogClose asChild>
+          <ButtonIcon icon={XIcon} variant="ghost" />
+        </DialogClose>
+      </header>
+      <Divider className="mt-1.5 mb-5" />
+    </>
+  );
 }
 export function DialogBody({
-    children,
-    ...props
+  children,
+  className,
+  ...props
 }: React.ComponentProps<"div">) {
-    return (
-        <div {...props}>{children}</div>
-    );
+  return (
+    <div className={className} {...props}>
+      {children}
+    </div>
+  );
 }
 export function DialogFooter({
-    children,
-    ...props
+  children,
+  ...props
 }: React.ComponentProps<"div">) {
-    return (
-        <div {...props}>
-            <Divider className="mt-5 mb-1.5"/>
-            <footer className="flex items-center justify-end gap-3">
-                {children}
-            </footer>
-        </div>
-    );
-}               
+  return (
+    <div {...props}>
+      <Divider className="mt-5 mb-1.5" />
+      <footer className="flex items-center justify-end gap-3">
+        {children}
+      </footer>
+    </div>
+  );
+}
