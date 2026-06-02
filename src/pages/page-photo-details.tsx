@@ -24,13 +24,13 @@ export default function PagePhotoDetails() {
           <PhotosNavigator />
         </header>
 
-        <div className="grid grid-cols-[21rem1fr]">
+        <div className="grid grid-cols-[21rem_1fr]">
           <div className="space-y-3 my-5">
             {!isLoadingPhoto ? (
               <ImageFilePreview
                 src={`/images/${photo?.imageId}`}
                 title={photo.title}
-                imageClassName="h-[21rem]"
+                imageClassName="h-[21rem]  rounded-lg"
               />
             ) : (
               <Skeleton className="h-[21rem]" />
@@ -41,7 +41,7 @@ export default function PagePhotoDetails() {
               <Skeleton className="w-20 h-10" />
             )}
           </div>
-          <div></div>
+          <div className=""> </div>
         </div>
       </Container>
     </>
