@@ -7,9 +7,11 @@ import Skeleton from "../components/skeleton";
 import PhotosNavigator from "../context/photos/components/photos-navigator";
 import ImageFilePreview from "../components/image-file-preview";
 import AlbumsListSelectable from "../context/albums/components/albums-list-selectable";
+import useAlbums from "../context/albums/hooks/use-albums";
 
 export default function PagePhotoDetails() {
-  const { id } = useParams();
+  const { albums, isLoadingAlbums } = useAlbums();
+
   const photo = photoMock;
   const isLoadingPhoto = false;
   return (
@@ -47,8 +49,8 @@ export default function PagePhotoDetails() {
               Albuns
             </Text>
             <AlbumsListSelectable
-              albums={albumsListMock}
-              loading={isLoadingPhoto}
+              albums={albums}
+              loading={isLoadingAlbums}
               photo={photoMock}
             />
           </div>

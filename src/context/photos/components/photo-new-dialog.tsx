@@ -12,9 +12,9 @@ import DialogContent, {
 import { useForm } from "react-hook-form";
 import ImageFilePreview from "../../../components/image-file-preview";
 import Text from "../../../components/text";
-import { albumsListMock } from "../../../helpers/util";
 import Button from "../../../components/button";
 import Skeleton from "../../../components/skeleton";
+import useAlbums from "../../albums/hooks/use-albums";
 
 interface PhotoNewDialogProps {
   trigger: React.ReactNode;
@@ -22,9 +22,7 @@ interface PhotoNewDialogProps {
 
 export default function PhotoNewDialog({ trigger }: PhotoNewDialogProps) {
   const form = useForm();
-  // TODO: only for mocking , replace later with api
-  const albums = albumsListMock;
-  const isLoadingAlbum = false;
+  const { albums, isLoadingAlbums } = useAlbums();
 
   return (
     <Dialog>
@@ -50,7 +48,7 @@ export default function PhotoNewDialog({ trigger }: PhotoNewDialogProps) {
             <Text as="div" variant="label-small">
               Selecionar albuns
             </Text>
-            {!isLoadingAlbum && albums.length > 0 && (
+            {!isLoadingAlbums && albums.length > 0 && (
               <div className="flex flex-wrap gap-3">
                 {albums.map((album, index) => (
                   <Button
@@ -64,7 +62,7 @@ export default function PhotoNewDialog({ trigger }: PhotoNewDialogProps) {
                 ))}
               </div>
             )}
-            {isLoadingAlbum && (
+            {isLoadingAlbums && (
               <div className="flex flex-wrap gap-3">
                 {Array.from({ length: 5 }).map((_, index) => (
                   <Skeleton

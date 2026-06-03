@@ -14,7 +14,7 @@ import ImageFilePreview from "../../../components/image-file-preview";
 import Skeleton from "../../../components/skeleton";
 import SelectCheckboxIllustration from "../../../assets/images/select-checkbox.svg?react";
 import PhotoImageSelectable from "../../photos/components/photo-image-selectable";
-
+import usePhotos from "../../photos/hooks/use-photos";
 
 interface AlbumNewDialogProps {
   trigger: React.ReactNode;
@@ -22,8 +22,7 @@ interface AlbumNewDialogProps {
 
 export default function AlbumNewDialog({ trigger }: AlbumNewDialogProps) {
   // TODO: only for mock
-  const isLoadingPhotos = false;
-  const photos = photoListMock;
+  const { photos, isLoadingPhotos } = usePhotos();
 
   return (
     <Dialog>
@@ -37,12 +36,12 @@ export default function AlbumNewDialog({ trigger }: AlbumNewDialogProps) {
               Fotos cadastradas
             </Text>
             {!isLoadingPhotos && (
-              <div className="flex flex-wrap gap-3 ">
+              <div className="flex overflow-x-auto gap-3 ">
                 {photos.length > 0 &&
                   photos.map((photo) => (
                     <PhotoImageSelectable
                       key={photo.id}
-                      src={`/images/${photo.imageId}`}
+                      src={`${import.meta.env.VITE_IMAGES_URL}/${photo.imageId}`}
                       title={photo.title}
                       className="w-20 h-20 rounded"
                     />

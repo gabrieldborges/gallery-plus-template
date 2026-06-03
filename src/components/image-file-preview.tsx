@@ -2,11 +2,11 @@ import { tv } from "tailwind-variants"
 
 
 const imageFilePreviewVariants = tv({
-    base: "rounded-lg overflow-hidden"
+    base: "rounded-lg overflow-hidden "
 })
 
 const imageFilePreviewImageVariants = tv({
-    base: `w-full h-hull object-cover`
+    base: `w-full h-full object-cover`
 })
 
 
