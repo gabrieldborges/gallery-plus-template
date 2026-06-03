@@ -3,6 +3,7 @@ import cx from "classnames";
 import Text from "../../../components/text";
 import Button from "../../../components/button";
 import Skeleton from "../../../components/skeleton";
+import usePhotos from "../../photos/hooks/use-photos";
 
 interface AlbunsFilterProps extends React.ComponentProps<"div"> {
   albums: Album[];
@@ -15,18 +16,32 @@ export default function AlbunsFilter({
   className,
   ...props
 }: AlbunsFilterProps) {
+  const { filter } = usePhotos();
+
   return (
     <div
-      className={cx(" flex items-center gap-3.5 overflow-x-auto mb-9", className)}
+      className={cx(
+        " flex items-center gap-3.5 overflow-x-auto mb-9",
+        className,
+      )}
       {...props}
     >
       {!loading && <Text variant="heading-small">Álbuns</Text>}
 
       {!loading ? (
         <>
-          <Button variant="ghost">Todos</Button>
+          <Button
+            variant={filter.albumId === null ? "primary" : "ghost"}
+            onClick={() => filter.setAlbumId(null)}
+          >
+            Todos
+          </Button>
           {albums.map((album) => (
-            <Button variant="ghost" key={album.id}>
+            <Button
+              variant={filter.albumId === album.id ? "primary" : "ghost"}
+              onClick={() => filter.setAlbumId(album.id)}
+              key={album.id}
+            >
               {album.title}
             </Button>
           ))}

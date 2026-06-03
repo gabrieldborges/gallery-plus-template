@@ -5,6 +5,7 @@ import ArrowLeft from "../../../assets/icons/chevron-left.svg?react";
 import ArrowRight from "../../../assets/icons/chevron-right.svg?react";
 import cx from "classnames";
 import classNames from "classnames";
+import usePhoto from "../hooks/use-photo";
 
 interface PhotosNavigatorProps extends React.ComponentProps<"div"> {
   previousPhotoId?: string;
@@ -18,6 +19,7 @@ export default function PhotosNavigator({
   loading,
   ...props
 }: PhotosNavigatorProps) {
+  
   const navigate = useNavigate();
 
   return (
@@ -27,7 +29,9 @@ export default function PhotosNavigator({
           <Button
             variant="secondary"
             icon={ArrowLeft}
-            onClick={() => navigate(`photos/${previousPhotoId}`)}
+              onClick={() => {
+              navigate(`/photos/${previousPhotoId}`);
+            }}
             disabled={!previousPhotoId}
           >
             Voltar
@@ -35,7 +39,7 @@ export default function PhotosNavigator({
           <Button
             icon={ArrowRight}
             variant="secondary"
-            onClick={() => navigate(`photos/${nextPhotoId}`)}
+            onClick={() => navigate(`/photos/${nextPhotoId}`)}
             disabled={!nextPhotoId}
           >
             Próxima imagem
