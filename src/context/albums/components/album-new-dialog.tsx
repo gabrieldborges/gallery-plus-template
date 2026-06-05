@@ -71,7 +71,7 @@ export default function AlbumNewDialog({ trigger }: AlbumNewDialogProps) {
           </div>
         </DialogBody>
         <DialogFooter className="mt-8">
-          <DialogClose>
+          <DialogClose asChild>
             <Button variant="secondary">Cancelar</Button>
           </DialogClose>
           <Button>Criar</Button>

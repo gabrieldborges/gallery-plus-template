@@ -71,12 +71,12 @@ export default function InputSingleFile({ replaceBy, size, error, form, maxFileS
 
     const acceptAttr = allowedExtensions.map(ext => `.${ext}`).join(",");
 
-    React.useEffect(() => {
-        console.log(`${((fileSize / 1024) / 1024).toFixed(2)}MB ${fileExtension}`)
-        console.log(isExtensionValid())
-    }, [formFile])
+    // React.useEffect(() => {
+    //     console.log(`${((fileSize / 1024) / 1024).toFixed(2)}MB ${fileExtension}`)
+    //     console.log(isExtensionValid())
+    // }, [formFile])
 
-    console.log(acceptAttr)
+    // console.log(acceptAttr)
 
 
 
@@ -121,7 +121,7 @@ export default function InputSingleFile({ replaceBy, size, error, form, maxFileS
 
                         {error && (
                             <Text variant="label-small" className="text-accent-red">
-                                Erro no campo
+                                {error}
                             </Text>
                         )}
                         {formFile && !isSizeValid() && (
