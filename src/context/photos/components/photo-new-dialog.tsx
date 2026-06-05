@@ -16,9 +16,9 @@ import Text from "../../../components/text";
 import Button from "../../../components/button";
 import Skeleton from "../../../components/skeleton";
 import useAlbums from "../../albums/hooks/use-albums";
-import type { PhotoNewFormSchema } from "../../schema";
+import type { PhotoNewFormSchema } from "../schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { photoNewFormSchema } from "../../schema";
+import { photoNewFormSchema } from "../schema";
 import usePhoto from "../hooks/use-photo";
 
 interface PhotoNewDialogProps {

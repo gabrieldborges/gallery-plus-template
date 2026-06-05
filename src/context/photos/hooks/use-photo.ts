@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetcher, api } from "../../../helpers/api";
 import type { Photo } from "../model/photo";
-import type { PhotoNewFormSchema } from "../../schema";
+import type { PhotoNewFormSchema } from "../schema";
 import { toast } from "sonner";
 
 

@@ -5,7 +5,7 @@ import { tv } from "tailwind-variants";
 
 export const photoImageSelectableVariants = tv({
   base: `
-    cursor-pointer relative rounded-lg
+    cursor-pointer relative rounded-lg my-1
   `,
   variants: {
     select: {
@@ -44,7 +44,7 @@ export default function PhotoImageSelectable({
       <InputCheckbox
         size="sm"
         onChange={handleSelect}
-        checked={isSelected}
+        defaultChecked={isSelected}
         className="absolute top-1 left-1"
       />
       <ImageFilePreview className={className}{...props} />
