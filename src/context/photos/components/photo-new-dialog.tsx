@@ -32,6 +32,8 @@ export default function PhotoNewDialog({ trigger }: PhotoNewDialogProps) {
   const form = useForm<PhotoNewFormSchema>({
     resolver: zodResolver(photoNewFormSchema),
   });
+  // TODO:
+  const mockIsCreatingPhoto = false
 
   const albumsIds = form.watch("albumsIds");
 
@@ -127,12 +129,12 @@ export default function PhotoNewDialog({ trigger }: PhotoNewDialogProps) {
           </DialogBody>
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="secondary" disabled={isCreatingPhoto}>
+              <Button variant="secondary" disabled={mockIsCreatingPhoto} className="w-[9.375rem]">
                 Cancelar
               </Button>
             </DialogClose>
-            <Button type="submit" handling={isCreatingPhoto}>
-              {isCreatingPhoto ? "Adicionando..." : "Adicionar"}
+            <Button type="submit" handling={mockIsCreatingPhoto} className="w-[9.375rem]">
+              {mockIsCreatingPhoto ? "Adicionando..." : "Adicionar"}
             </Button>
           </DialogFooter>
         </form>
