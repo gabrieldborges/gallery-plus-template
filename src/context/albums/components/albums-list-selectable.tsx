@@ -1,9 +1,11 @@
+import React from "react";
 import type { Album } from "../model/album";
 import Text from "../../../components/text";
 import InputCheckbox from "../../../components/input-checkbox";
 import Divider from "../../../components/divider";
 import Skeleton from "../../../components/skeleton";
 import type { Photo } from "../../photos/model/photo";
+import usePhotoAlbums from "../../photos/hooks/use-photo-albums";
 
 interface AlbumsListSelectableProps extends React.ComponentProps<"div"> {
   albums: Album[];
@@ -17,20 +19,29 @@ export default function AlbumsListSelectable({
   loading,
   ...props
 }: AlbumsListSelectableProps) {
+
+  const {managePhotoOnAlbum} = usePhotoAlbums();
+  const [isUpdatingPhoto, setIsUpdatingPhoto] = React.useTransition();
+
   function isChecked(albumId: string) {
     return photo?.albums?.some((album) => album.id === albumId);
   }
-  function handlePhotoOnAlbums(albumId: string) {
-    let albumIds = [];
+  async function handlePhotoOnAlbums(albumId: string) {
+    let albumIds = [""];
 
     if (isChecked(albumId)) {
-      albumIds = photo?.albums
-        ?.filter((album) => album.id !== albumId)
+      console.log("checked", albumId)
+      albumIds = photo.albums
+        .filter((album) => album.id !== albumId)
         .map((album) => album.id);
     } else {
-      albumIds = [...photo?.albums.map((album) => album.id), albumId];
+      albumIds = [...photo.albums.map((album) => album.id), albumId];
+      console.log("not checked", albumId)
+
     }
-    console.log(albumIds);
+    setIsUpdatingPhoto(async () => {
+      await managePhotoOnAlbum(photo.id, albumIds);
+    });
   }
 
   return (
@@ -45,7 +56,8 @@ export default function AlbumsListSelectable({
                 </Text>
                 <InputCheckbox
                   defaultChecked={isChecked(album.id)}
-                  onClick={() => handlePhotoOnAlbums(album.id)}
+                  onChange={() => handlePhotoOnAlbums(album.id)}
+                  disabled={isUpdatingPhoto}
                 ></InputCheckbox>
               </div>
               {index < albums?.length - 1 && (

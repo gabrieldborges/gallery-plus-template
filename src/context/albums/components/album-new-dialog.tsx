@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useTransition } from "react";
 import DialogContent, {
   Dialog,
   DialogBody,
@@ -19,6 +19,7 @@ import { albumNewFormSchema } from "../schemas";
 import type { AlbumNewFormSchema } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { Album } from "../model/album";
+import useAlbum from "../hooks/use-album";
 
 interface AlbumNewDialogProps {
   trigger: React.ReactNode;
@@ -27,6 +28,8 @@ interface AlbumNewDialogProps {
 export default function AlbumNewDialog({ trigger }: AlbumNewDialogProps) {
   const { photos, isLoadingPhotos } = usePhotos();
   const [modalOpen, setModalOpen] = React.useState(false);
+  const { createAlbum } = useAlbum();
+  const [isCreatingAlbum, setIsCreatingAlbum] = useTransition();
 
   const form = useForm<AlbumNewFormSchema>({
     resolver: zodResolver(albumNewFormSchema),
@@ -46,11 +49,12 @@ export default function AlbumNewDialog({ trigger }: AlbumNewDialogProps) {
     } else {
       newValue = photosIds.filter((id) => id !== photoId);
     }
-    form.setValue("photosIds", newValue)
+    form.setValue("photosIds", newValue);
   }
 
   function handleSubmit(payload: AlbumNewFormSchema) {
-    console.log(payload);
+    setIsCreatingAlbum(async () => await createAlbum(payload));
+    setModalOpen(false);
   }
 
   return (
@@ -109,9 +113,17 @@ export default function AlbumNewDialog({ trigger }: AlbumNewDialogProps) {
           </DialogBody>
           <DialogFooter className="mt-8">
             <DialogClose asChild>
-              <Button variant="secondary">Cancelar</Button>
+              <Button
+                variant="secondary"
+                disabled={isCreatingAlbum}
+                handling={isCreatingAlbum}
+              >
+                Cancelar
+              </Button>
             </DialogClose>
-            <Button type="submit">Criar</Button>
+            <Button type="submit" disabled={isCreatingAlbum}>
+              {isCreatingAlbum ? "Criando..." : "Criar"}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

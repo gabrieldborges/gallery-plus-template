@@ -3,6 +3,7 @@ import { fetcher, api } from "../../../helpers/api";
 import type { Photo } from "../model/photo";
 import type { PhotoNewFormSchema } from "../schema";
 import { toast } from "sonner";
+import { useNavigate } from "react-router";
 
 
 
@@ -12,6 +13,7 @@ interface PhotoDetailResponse extends Photo {
 }
 
 export default function usePhoto(id?: string) {
+    const navigate = useNavigate();
 
     const { data, isLoading } = useQuery<PhotoDetailResponse>({
         queryKey: ["photo", id],
@@ -51,6 +53,18 @@ export default function usePhoto(id?: string) {
         }
     }
 
+    async function deletePhoto(photoId: string) {
+    try {
+      await api.delete(`/photos/${photoId}`);
+
+      toast.success("Foto excluída com sucesso");
+
+      navigate("/");
+    } catch (error) {
+      toast.error("Erro ao excluir foto");
+      throw error;
+    }
+  }
 
 
     return {
@@ -58,7 +72,8 @@ export default function usePhoto(id?: string) {
         isPhotoLoading: isLoading,
         previousPhotoId: data?.previousPhotoId,
         nextPhotoId: data?.nextPhotoId,
-        createPhoto
+        createPhoto,
+        deletePhoto
     }
 
 }
