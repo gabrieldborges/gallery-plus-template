@@ -11,7 +11,7 @@ export default function PageHome() {
   return (
     <>
       <div>
-        <Container as="div" className={" mt-9"}>
+        <Container as="div" className={""}>
           <AlbunsFilter
             albums={albums}
             loading={isLoadingAlbums}

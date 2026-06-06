@@ -25,7 +25,11 @@ export default function PhotoList({ photos, loading }: PhotoListProps) {
         )}
       </Text>
       {!loading && photos?.length > 0 && (
-        <div className="grid grid-cols-5 gap-9">
+        <div className="
+        md:grid md:grid-cols-5 md:gap-9
+        grid grid-cols-2 gap-2
+        
+        ">
           {photos.map((photo, index) => (
             <PhotoWidget photo={photo} key={`PhotoWidget-key-${index}`}/>
           ))}

@@ -54,6 +54,7 @@ export default function DialogContent({
         ref={ref}
         className={cn(
           `
+                    p-3 md:p-0
                     fixed left-[50%] top-[50%] w-full max-w-[32rem] 
                     z-70 translate-x-[-50%] translate-y-[-50%]
                     data-[state=open]:animate-in
@@ -62,7 +63,6 @@ export default function DialogContent({
                     data-[state=closed]:animate-out
                     data-[state=closed]:fade-out-0
                     data-[state=closed]:slide-out-to-bottom-[48%]
-                    
                     `,
           className,
         )}

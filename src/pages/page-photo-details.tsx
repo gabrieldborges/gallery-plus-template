@@ -16,7 +16,7 @@ export default function PagePhotoDetails() {
   const { id } = useParams();
   const { photo, isPhotoLoading, previousPhotoId, nextPhotoId, deletePhoto } =
     usePhoto(id);
-console.log('usePhoto return:', { photo, deletePhoto })
+  console.log("usePhoto return:", { photo, deletePhoto });
   const [isDeletingPhoto, setIsDeletingPhoto] = React.useTransition();
 
   function handleDeletePhoto() {
@@ -28,7 +28,7 @@ console.log('usePhoto return:', { photo, deletePhoto })
   return (
     <>
       <Container>
-        <header className="flex justify-between">
+        <header className="flex justify-between whitespace-nowrap items-center md:mt-0 mt-10">
           {!isPhotoLoading ? (
             <Text variant="heading-large">{photo?.title}</Text>
           ) : (
@@ -42,7 +42,7 @@ console.log('usePhoto return:', { photo, deletePhoto })
           />
         </header>
 
-        <div className="grid grid-cols-[21rem_1fr] gap-[5.75rem]">
+        <div className="md:grid md:grid-cols-[21rem_1fr] md:gap-[5.75rem]">
           <div className="space-y-3 my-5">
             {!isPhotoLoading ? (
               <ImageFilePreview

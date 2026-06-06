@@ -20,6 +20,7 @@ export const buttonVariants = tv({
 		size: {
 			sm: "h-7 py-1 px-3",
 			md: "h-10 py-2 pl-3 pr-3",
+			mbtn : "md:h-10 h-fit md:py-2 py-1 pl-3 pr-3"
 		},
 		disabled: {
 			true: "opacity-50 pointer-events-none",
@@ -47,6 +48,7 @@ export const buttonTextVariants = tv({
 		size: {
 			sm: "text-sm",
 			md: "text-base",
+			mbtn: "text-sm",
 		},
 	},
 	defaultVariants: {
@@ -65,7 +67,8 @@ export const buttonIconVariants = tv({
 		},
 		size: {
 			sm: "w-4 h-4",
-			md: "w-6 h-6",
+			md: "md:w-6 md:h-6 w-4 h-4",
+			mbtn: "md:w-6 md:h-6 w-4 h-4",
 		},
 		handling: {
 			true: "w-4 h-4",

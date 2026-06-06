@@ -21,15 +21,15 @@ export default function AlbunsFilter({
   return (
     <div
       className={cx(
-        " flex items-center gap-3.5 overflow-x-auto mb-9",
+        " flex items-center gap-3.5  mb-9",
         className,
       )}
       {...props}
     >
-      {!loading && <Text variant="heading-small">Álbuns</Text>}
+      {!loading && <Text as={"div"} className="flex items-center gap-3.5  "variant="heading-small">Álbuns</Text>}
 
       {!loading ? (
-        <>
+        <div className="flex items-center gap-3.5   overflow-x-auto rounded">
           <Button
             variant={filter.albumId === null ? "primary" : "ghost"}
             onClick={() => filter.setAlbumId(null)}
@@ -45,7 +45,7 @@ export default function AlbunsFilter({
               {album.title}
             </Button>
           ))}
-        </>
+        </div>
       ) : (
         Array.from({ length: 8 }).map((_, index) => (
           <Skeleton

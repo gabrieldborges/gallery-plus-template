@@ -16,7 +16,7 @@ export default function PhotoWidget({ photo, loading }: PhotoWidgetProps) {
   const badgeNumberDisplay = 2;
 
   return (
-    <div className="flex flex-col gap-4 w-[10.875rem]">
+    <div className="flex flex-col md:gap-4 gap-3 md:w-[10.875rem] mb-2 ">
       {!loading ? (
         <ImageFilePreview
           src={`${import.meta.env.VITE_IMAGES_URL}/${photo.imageId}`}

@@ -3,8 +3,14 @@ import InputText from "../input-text";
 import React from "react";
 import { debounce } from "../../helpers/util";
 import usePhotos from "../../context/photos/hooks/use-photos";
+import cx from "classnames";
 
-export default function PhotoSearch() {
+
+interface PhotoSearchProps extends React.ComponentProps<"input">{
+
+}
+
+export default function PhotoSearch({className}:PhotoSearchProps) {
   const [inputValue, setInputValue] = React.useState("");
   const { filter } = usePhotos();
 
@@ -27,7 +33,7 @@ export default function PhotoSearch() {
     <InputText
       icon={SearchIcon}
       placeholder="Buscar fotos"
-      className="flex-1"
+      className={cx("flex-1",className)}
       value={inputValue}
       onChange={handleInputValueChange}
     />
