@@ -2,6 +2,7 @@ import type { Photo } from "../model/photo";
 import PhotoWidget from "./photo-widget";
 import Text from "../../../components/text";
 import Skeleton from "../../../components/skeleton";
+import useIsMobile from "../../../helpers/use-is-mobile";
 
 interface PhotoListProps {
   photos: Photo[];
@@ -9,9 +10,10 @@ interface PhotoListProps {
 }
 
 export default function PhotoList({ photos, loading }: PhotoListProps) {
+  const {isMobile} = useIsMobile();
+
   return (
     <div className=" w-full space-y-6">
-        
       <Text
         as="div"
         variant="paragraph-large"
@@ -25,29 +27,43 @@ export default function PhotoList({ photos, loading }: PhotoListProps) {
         )}
       </Text>
       {!loading && photos?.length > 0 && (
-        <div className="
+        <div
+          className="
         md:grid md:grid-cols-5 md:gap-9
         grid grid-cols-2 gap-2
         
-        ">
+        "
+        >
           {photos.map((photo, index) => (
-            <PhotoWidget photo={photo} key={`PhotoWidget-key-${index}`}/>
+            <PhotoWidget photo={photo} key={`PhotoWidget-key-${index}`} />
           ))}
         </div>
       )}
 
       {loading && (
-        <div className="grid grid-cols-5 gap-9">
-          {Array.from({ length: 20 }).map((_, index) => (
-            <PhotoWidget photo={{} as Photo} loading key={`Empty-PhotoWidget-key-${index}`}/>
+        <div
+          className=" md:grid md:grid-cols-5 md:gap-9
+        grid grid-cols-2 gap-2"
+        >
+          {Array.from({ length: isMobile ? 4 : 10 }).map((_, index) => (
+            <PhotoWidget
+              photo={{} as Photo}
+              loading
+              key={`Empty-PhotoWidget-key-${index}`}
+            />
           ))}
         </div>
       )}
 
-      {
-        !loading && photos.length === 0 && 
-        <Text as="div" variant="heading-large" className="text-center flex justify-center items-center">Nenhuma foto encontrada</Text>    
-      }
+      {!loading && photos.length === 0 && (
+        <Text
+          as="div"
+          variant="heading-large"
+          className="text-center flex justify-center items-center"
+        >
+          Nenhuma foto encontrada
+        </Text>
+      )}
     </div>
   );
 }

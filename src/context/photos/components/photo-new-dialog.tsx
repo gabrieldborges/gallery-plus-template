@@ -20,6 +20,7 @@ import type { PhotoNewFormSchema } from "../schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { photoNewFormSchema } from "../schema";
 import usePhoto from "../hooks/use-photo";
+import useIsMobile from "../../../helpers/use-is-mobile";
 
 interface PhotoNewDialogProps {
   trigger: React.ReactNode;
@@ -32,10 +33,9 @@ export default function PhotoNewDialog({ trigger }: PhotoNewDialogProps) {
   const form = useForm<PhotoNewFormSchema>({
     resolver: zodResolver(photoNewFormSchema),
   });
-  // TODO:
-  const mockIsCreatingPhoto = false
 
   const albumsIds = form.watch("albumsIds");
+  const {isMobile} = useIsMobile();
 
   const { albums, isLoadingAlbums } = useAlbums();
 
@@ -117,9 +117,9 @@ export default function PhotoNewDialog({ trigger }: PhotoNewDialogProps) {
               )}
               {isLoadingAlbums && (
                 <div className="flex flex-wrap gap-3">
-                  {Array.from({ length: 5 }).map((_, index) => (
+                  {Array.from({ length: isMobile ? 3 : 5 }).map((_, index) => (
                     <Skeleton
-                      className="w-20 h-7"
+                      className="flex-1 h-7"
                       key={`album-loading-${index}`}
                     ></Skeleton>
                   ))}
@@ -129,12 +129,12 @@ export default function PhotoNewDialog({ trigger }: PhotoNewDialogProps) {
           </DialogBody>
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="secondary" disabled={mockIsCreatingPhoto} className="w-[9.375rem]">
+              <Button variant="secondary" disabled={isCreatingPhoto} className="w-[9.375rem]">
                 Cancelar
               </Button>
             </DialogClose>
-            <Button type="submit" handling={mockIsCreatingPhoto} className="w-[9.375rem]">
-              {mockIsCreatingPhoto ? "Adicionando..." : "Adicionar"}
+            <Button type="submit" handling={isCreatingPhoto} className="w-[9.375rem]">
+              {isCreatingPhoto ? "Adicionando..." : "Adicionar"}
             </Button>
           </DialogFooter>
         </form>

@@ -20,6 +20,7 @@ import type { AlbumNewFormSchema } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { Album } from "../model/album";
 import useAlbum from "../hooks/use-album";
+import useIsMobile from "../../../helpers/use-is-mobile";
 
 interface AlbumNewDialogProps {
   trigger: React.ReactNode;
@@ -27,6 +28,8 @@ interface AlbumNewDialogProps {
 
 export default function AlbumNewDialog({ trigger }: AlbumNewDialogProps) {
   const { photos, isLoadingPhotos } = usePhotos();
+
+  const {isMobile} = useIsMobile();
   const [modalOpen, setModalOpen] = React.useState(false);
   const { createAlbum } = useAlbum();
   const [isCreatingAlbum, setIsCreatingAlbum] = useTransition();
@@ -74,7 +77,7 @@ export default function AlbumNewDialog({ trigger }: AlbumNewDialogProps) {
                 Fotos cadastradas
               </Text>
               {!isLoadingPhotos && (
-                <div className="flex overflow-x-auto gap-3 ">
+                <div className="flex overflow-x-auto gap-3 p-1 ">
                   {photos.length > 0 &&
                     photos.map((photo) => (
                       <PhotoImageSelectable
@@ -91,9 +94,9 @@ export default function AlbumNewDialog({ trigger }: AlbumNewDialogProps) {
               )}
               {isLoadingPhotos && (
                 <div className="flex flex-wrap gap-3 ">
-                  {Array.from({ length: 5 }).map((_, index) => (
+                  {Array.from({ length: isMobile ? 3 : 5 }).map((_, index) => (
                     <Skeleton
-                      className="w-20 h-20 rounded"
+                      className="flex-1 h-20 rounded"
                       key={`loading-photos-${index}`}
                     ></Skeleton>
                   ))}

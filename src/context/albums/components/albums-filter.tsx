@@ -4,7 +4,7 @@ import Text from "../../../components/text";
 import Button from "../../../components/button";
 import Skeleton from "../../../components/skeleton";
 import usePhotos from "../../photos/hooks/use-photos";
-
+import useIsMobile from "../../../helpers/use-is-mobile";
 interface AlbunsFilterProps extends React.ComponentProps<"div"> {
   albums: Album[];
   loading?: boolean;
@@ -17,6 +17,7 @@ export default function AlbunsFilter({
   ...props
 }: AlbunsFilterProps) {
   const { filter } = usePhotos();
+  const {isMobile} = useIsMobile();
 
   return (
     <div
@@ -47,7 +48,7 @@ export default function AlbunsFilter({
           ))}
         </div>
       ) : (
-        Array.from({ length: 8 }).map((_, index) => (
+        Array.from({ length: isMobile ? 4 : 8 }).map((_, index) => (
           <Skeleton
             className="h-7 w-full"
             key={`album-loading-${index}`}

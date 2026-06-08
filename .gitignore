@@ -24,7 +24,7 @@ dist-ssr
 *.sw?
 
 # Data folder
-data/
+
 
 # Server build output
 server/dist/

@@ -10,14 +10,17 @@ import AlbumsListSelectable from "../context/albums/components/albums-list-selec
 import useAlbums from "../context/albums/hooks/use-albums";
 import usePhoto from "../context/photos/hooks/use-photo";
 import type { Photo } from "../context/photos/model/photo";
+import useIsMobile from "../helpers/use-is-mobile";
 
 export default function PagePhotoDetails() {
   const { albums, isLoadingAlbums } = useAlbums();
   const { id } = useParams();
   const { photo, isPhotoLoading, previousPhotoId, nextPhotoId, deletePhoto } =
     usePhoto(id);
+
   console.log("usePhoto return:", { photo, deletePhoto });
   const [isDeletingPhoto, setIsDeletingPhoto] = React.useTransition();
+  const { isMobile } = useIsMobile();
 
   function handleDeletePhoto() {
     setIsDeletingPhoto(async () => {
@@ -35,11 +38,13 @@ export default function PagePhotoDetails() {
             <Skeleton className="w-48 h-8"></Skeleton>
           )}
 
-          <PhotosNavigator
-            loading={isPhotoLoading}
-            previousPhotoId={previousPhotoId}
-            nextPhotoId={nextPhotoId}
-          />
+          {!isMobile && (
+            <PhotosNavigator
+              loading={isPhotoLoading}
+              previousPhotoId={previousPhotoId}
+              nextPhotoId={nextPhotoId}
+            />
+          )}
         </header>
 
         <div className="md:grid md:grid-cols-[21rem_1fr] md:gap-[5.75rem]">
@@ -54,21 +59,33 @@ export default function PagePhotoDetails() {
               <Skeleton className="h-[21rem]" />
             )}
             {!isPhotoLoading ? (
-              <Button
-                disabled={isDeletingPhoto}
-                handling={isDeletingPhoto}
-                variant="destructive"
-                onClick={handleDeletePhoto}
-              >
-                {isDeletingPhoto ? "Excluindo" : "Excluir"}
-              </Button>
+              <div className="flex items-center justify-between">
+                <Button
+                  disabled={isDeletingPhoto}
+                  handling={isDeletingPhoto}
+                  variant="destructive"
+                  onClick={handleDeletePhoto}
+                >
+                  {isDeletingPhoto ? "Excluindo" : "Excluir"}
+                </Button>
+                {isMobile && (
+                  <PhotosNavigator
+                    loading={isPhotoLoading}
+                    previousPhotoId={previousPhotoId}
+                    nextPhotoId={nextPhotoId}
+                  />
+                )}
+              </div>
             ) : (
-              <Skeleton className="w-20 h-10" />
+              <div className="flex items-center justify-between">
+                <Skeleton className="w-20 h-10" />
+                {isMobile && <Skeleton className="w-48 h-10"></Skeleton>}
+              </div>
             )}
           </div>
           <div className="py-3">
             <Text as={"h3"} variant="heading-medium">
-              Albuns
+              Álbuns
             </Text>
             <AlbumsListSelectable
               albums={albums}

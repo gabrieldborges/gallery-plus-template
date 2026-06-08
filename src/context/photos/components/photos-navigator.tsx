@@ -27,7 +27,7 @@ export default function PhotosNavigator({
       {!loading ? (
         <>
           <Button
-          size="mbtn"
+          size="md"
             variant="secondary"
             icon={ArrowLeft}
               onClick={() => {
@@ -38,7 +38,7 @@ export default function PhotosNavigator({
             Voltar
           </Button>
           <Button
-          size="mbtn"
+          size="md"
 
             icon={ArrowRight}
             variant="secondary"
