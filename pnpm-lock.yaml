@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@custom-react-hooks/use-media-query':
+        specifier: ^1.5.1
+        version: 1.5.1(react@19.1.0)
       '@fastify/cors':
         specifier: 8.5.0
         version: 8.5.0
@@ -201,6 +204,11 @@ packages:
   '@babel/types@7.27.6':
     resolution: {integrity: sha512-ETyHEk2VHHvl9b9jZP5IHPavHYk57EhanlRRuae9XCpb/j5bDCbPPMOBfCWhnl/7EDJz0jEMCi/RhccCE8r1+Q==}
     engines: {node: '>=6.9.0'}
+
+  '@custom-react-hooks/use-media-query@1.5.1':
+    resolution: {integrity: sha512-a9ON4m1XjlWlCSHmtZ4Horau/1DWURbHlk6dq7mNkaOM5vRyxp2EgklWrUqoX2Ywnqnr065YYDgqUUA0VYZDTw==}
+    peerDependencies:
+      react: '>=16'
 
   '@esbuild/aix-ppc64@0.25.5':
     resolution: {integrity: sha512-9o3TMmpmftaCMepOdA5k/yDw8SfInyzWWTjYTFCX3kPSDJMROQTb8jg+h9Cnwnmm1vOzvxN7gIfB5V2ewpjtGA==}
@@ -2934,6 +2942,10 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
+
+  '@custom-react-hooks/use-media-query@1.5.1(react@19.1.0)':
+    dependencies:
+      react: 19.1.0
 
   '@esbuild/aix-ppc64@0.25.5':
     optional: true
